@@ -6,10 +6,12 @@ win.geometry("650x350")
 win.config(bg='#C0C0C0')
 
 
+
+
 def main_fun():
     ipr = ip.get()
     subnet=int(subnet_add.get())
-    sub_net_str=''.join(str("1"*subnet+"0"*(32-subnet))) 
+    sub_net_str=''.join(str("1"*subnet+"0"*(32-subnet)))  #seting ones and zeros
     xyz = re.findall('........',sub_net_str)
     ijk = []
     for i in xyz:
@@ -19,19 +21,19 @@ def main_fun():
     #create network address
     
     network_lst = []
-    new = list(ipr.split("."))
+    new = list(ipr.split("."))    #ip address in []
     for i in range(len(new)):
-        network_lst.append(int(new[i]) & ijk[i])    #(subnetmask_adr & ip_addres)
+        network_lst.append(int(new[i]) & ijk[i])    #(subnetmask_adr & ip_addres) #AND operation
     network_address = ".".join(map(str, network_lst))
   
-    #broad cast address (net.aadr , subnetmask addre) 
+    #broad cast address (net.aadress , subnetmask address) 
     
-    str_inverted_subnet=''.join(str("0"*subnet+"1"*(32-subnet)))
+    str_inverted_subnet=''.join(str("0"*subnet+"1"*(32-subnet)))  #converting subnet to ones 
     inverted= re.findall('........',str_inverted_subnet)
     inver_lst = []
     
     for i in inverted:
-        inver_lst.append(int(i,2)) #conert to decimal
+        inver_lst.append(int(i,2)) #convert to decimal
     brodcast_lst = []
     new1 = list(network_address.split("."))
     
@@ -54,32 +56,30 @@ def main_fun():
 	# result window
 	
     new= Toplevel(win)
-    new.geometry("650x300")
+    new.geometry("600x300")
     new.config(bg='#C0C0C0')
     new.title("Result")
-    Label(new, text="IP Address : ", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=40)
-    Label(new, text=ipr, font=('Helvetica 17 bold'),bg="blue").place(x=300,y=40)
-    Label(new, text="subnet mask : ", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=70)
-    Label(new, text=subnet_mask_ipv4, font=('Helvetica 17 bold'),bg="blue").place(x=300,y=70)
-    Label(new, text="Network address : ", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=100)
-    Label(new, text=network_address, font=('Helvetica 17 bold'),bg="blue").place(x=300,y=100)
-    Label(new, text="Broadcast address : ", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=130)
-    Label(new, text=brodacast_address, font=('Helvetica 17 bold'),bg="blue").place(x=300,y=130)
-    Label(new, text="No.of available IP address:", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=160)
-    Label(new, text=useable_ip_address, font=('Helvetica 17 bold'),bg="blue").place(x=320,y=160)
-    Label(new, text="Range : ", font=('Helvetica 17 bold'),bg="blue").place(x=10,y=190)
-    Label(new, text=range1, font=('Helvetica 17 bold'),bg="blue").place(x=300,y=190)
+    Label(new, text="IP Address : ", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=40)
+    Label(new, text=ipr, font=('Helvetica 15 bold'),bg="white").place(x=350,y=40)
+    Label(new, text="subnet mask : ", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=70)
+    Label(new, text=subnet_mask_ipv4, font=('Helvetica 15 bold'),bg="white").place(x=350,y=70)
+    Label(new, text="Network address : ", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=100)
+    Label(new, text=network_address, font=('Helvetica 15 bold'),bg="white").place(x=350,y=100)
+    Label(new, text="Broadcast address : ", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=130)
+    Label(new, text=brodacast_address, font=('Helvetica 15 bold'),bg="white").place(x=350,y=130)
+    Label(new, text="No.of available IP address:", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=160)
+    Label(new, text=useable_ip_address, font=('Helvetica 15 bold'),bg="white").place(x=350,y=160)
+    Label(new, text="Range : ", font=('Helvetica 15 bold'),bg="blue").place(x=10,y=190)
+    Label(new, text=range1, font=('Helvetica 15 bold'),bg="white").place(x=350,y=190)
 def clear():
 	ip.set('')
 	subnet_add.set('')
-	
-	
 #main window
 win.title('Subnet Calculator')
-win.geometry('500x500')
-win.config(bg='#808080')
-label1 = Label(win, text="enter the ip address : ", bg="yellow", fg="white").place(x=10,y=40)
-label2 = Label(win, text="enter the subnetmask : ", bg="yellow", fg="white").place(x=10,y=80)
+win.geometry('500x200')
+win.config(bg='#C0C0C0')
+label1 = Label(win, text="Enter the ip address : ", bg="yellow", fg="black").place(x=10,y=40)
+label2 = Label(win, text="Enter the subnetmask : ", bg="yellow", fg="black").place(x=10,y=80)
 ip = StringVar(win)
 subnet_add=StringVar(win)
 
@@ -90,7 +90,7 @@ sub_net_mask = Entry(win, bd =5,textvariable=subnet_add).place(x=190,y=80)
 #button
 button1 = Button(win,text="Calculate",command=main_fun).place(x=140,y=150)
 button2 = Button(win,text="clear",command=clear).place(x=250,y=150)
-
-
+	
+	
 
 win.mainloop()
